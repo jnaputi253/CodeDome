@@ -4,13 +4,13 @@ FileHandler * initHandler() {
     return (FileHandler *)calloc(1, sizeof(FileHandler));
 }
 
-void getInputFile(FileHandler * handler) {
+char * getFile(char * prompt) {
     char buff[200];
     char extension[5];
     int repeat = 1;
     
     while(repeat) {
-        printf("Enter your input file: ");
+        printf("%s", prompt);
         fgets(buff, 200, stdin);
         
         int offset = strlen(buff) - 4;
@@ -18,41 +18,38 @@ void getInputFile(FileHandler * handler) {
         
         int result = strcmp(extension, "txt");
         
-        printf("Extension: %s\n", extension);
         if(result == 0) {
-            printf("It is a text file\n");
-            strncpy(handler->inputFile, buff, strlen(buff));
-            printf("Copy done\n");
-            repeat = 0;
+            if(validateFile(buff) == 0) {
+                repeat = 0;
+            } else if(validateFile(buff) == -1) {
+                printf("The file does not exist\n");
+            }
         } else {
-            printf("It is not a text file\n");
+            printf("Please enter a text file (.txt) only\n");
             buff[0] = '\0';
             extension[0] = '0';
         }
     }
+    
+    
+    char *filename = (char *)calloc(strlen(buff) - 1, sizeof(char));
+    strncpy(filename, buff, strlen(buff) - 1);
+    return filename;
 }
 
-void getOutputFile(FileHandler * handler) {
-    char buff[200];
-    char extension[5];
-    int repeat = 1;
+int validateFile(char *filename) {
+    char *file = (char *)calloc(strlen(filename) - 1, sizeof(char));
+    strncpy(file, filename, strlen(filename) - 1);
     
-    while(repeat) {
-        printf("Enter your output file: ");
-        fgets(buff, 200, stdin);
-        
-        int offset = strlen(buff) - 4;
-        strncpy(extension, (buff + offset), 3);
-        
-        int result = strcmp(extension, "txt");
-
-        if(result == 0) {
-            strncpy(handler->outputFile, buff, strlen(buff));
-            repeat = 0;
-        } else {
-            printf("It is not a text file\n");
-            buff[0] = '\0';
-            extension[0] = '0';
-        }
+    int result;
+    FILE *fp = fopen(file, "r");
+    
+    if(fp != NULL) {
+        result = 0;
+    } else if(fp == NULL) {
+        result = -1;
     }
+    
+    fclose(fp);
+    return result;
 }

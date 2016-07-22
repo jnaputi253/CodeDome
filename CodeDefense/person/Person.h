@@ -3,21 +3,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex.h>
+// #include <regex.h>
 #include <string.h>
 
 typedef struct {
-	char firstName[50];
-	char lastName[50];
+	char *firstName;
+	char *lastName;
 } Person;
 
 Person * init();
 
-void getFirstName(Person *person);
+char * getName(char *prompt);
 
-void getLastName(Person *person);
-
-char * clearArray(char *array, int size);
+//char * getCopy(char *source);
+//
+//void getFirstName(Person *person);
+//
+//void getLastName(Person *person);
+//
+//char * clearArray(char *array, int size);
 
 #endif
 

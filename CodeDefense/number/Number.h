@@ -13,9 +13,7 @@ typedef struct {
 
 Number * initNumbers();
 
-void readFirstNumber(Number *num);
-
-void readSecondNumber(Number *num);
+int getNumber(char *prompt);
 
 int add(int num1, int num2);
 

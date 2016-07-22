@@ -4,18 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 typedef struct {
-    char inputFile[200];
-    char outputFile[200];
+    char *inputFile;
+    char *outputFile;
 } FileHandler;
 
 FileHandler * initHandler();
 
-void getInputFile(FileHandler *handler);
+char * getFile(char * prompt);
 
-void getOutputFile(FileHandler *handler);
-
-char * getExtension(char *buff, int offset);
+int validateFile(char *filename);
 
 #endif
