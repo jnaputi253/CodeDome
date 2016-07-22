@@ -1,4 +1,4 @@
-ltest: main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o
+test: main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o
 	gcc -pedantic -Wall -Werror -Wextra -o test main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o
 
 Person.o: ./person/Person.c ./person/Person.h
