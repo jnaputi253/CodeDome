@@ -3,64 +3,81 @@
 #include "person/Person.h"
 #include "number/Number.h"
 #include "filehandler/Filehandler.h"
+#include "password/Password.h"
 
-void cleanup(Person *me, Number *num, FileHandler *fh);
+void writeData(Person *p, Number *n, Password *pw, FileHandler *fh);
+void writeDataFromInputFile(FileHandler *fh);
 
 int main() {
 	Person *me = init();
-    /* 
-    This stuff works fine.  But I had to comment it out to not make your compiler complain.
-    If it does somehow, I'm sorry ;-;
-    
     me->firstName = getName("Enter your first name: ");
     me->lastName = getName("Enter your last name: ");
-    
-    printf("Name: %s %s\n", me->firstName, me->lastName);
-    */
     
     Number *number = initNumbers();
     number->firstNumber = getNumber("Enter your first number: ");
     number->secondNumber = getNumber("Enter your second number: ");
     
-    printf("First Number: %d\n", number->firstNumber);
-    printf("Second Number: %d\n", number->secondNumber);
-    
-    // TODO: work on the add function and assign to a number
-    // TODO: work on the multiply function and assign to a number
-    
     FileHandler *handler = initHandler();
     handler->inputFile = getFile("Enter your input file: ");
     handler->outputFile = getFile("Enter your output file: ");
     
+    Password *password = passwordInit();
+    password->pw1 = getPassword(password, "Enter password: ");
+    password->pw2 = getPassword(password, "Enter matching password: ");
     
-    printf("\nInput File: %s\n", handler->inputFile);
-    printf("Output File: %s\n", handler->outputFile);
+    comparePasswords(password);
     
-    free(me);
-    free(number);
-    free(handler);
+    writeData(me, number, password, handler);
+    writeDataFromInputFile(handler);
+    
+    cleanPerson(me);
+    cleanNumber(number);
+    cleanFile(handler);
+    cleanPassword(password);
 
 	return 0;
 }
 
-void cleanup(Person *me, Number *num, FileHandler *fh) {
-    if(me != NULL) {
-        // The below is fine.  I just needed to block this since no mem is allocated.
-        // free(me->firstName);
-        // free(me->lastName);
-        free(me);
-        me = NULL;
+void writeData(Person *p, Number *n, Password *pw, FileHandler *fh) {
+    FILE *fp = fopen(fh->outputFile, "w+");
+    
+    fputs(p->firstName, fp);
+    fputs(" ", fp);
+    fputs(p->lastName, fp);
+    fputs("\n", fp);
+    fprintf(fp, "%d", n->firstNumber);
+    fputs("\n", fp);
+    fprintf(fp, "%d", n->secondNumber);
+    fputs("\n", fp);
+    
+    fprintf(fp, "%d + %d = %d\n", n->firstNumber,
+            n->secondNumber, add(n->firstNumber, n->secondNumber));
+    
+    fprintf(fp, "%d * %d = %d\n", n->firstNumber,
+            n->secondNumber, multiply(n->firstNumber, n->secondNumber));
+    
+    fputs(pw->pw1, fp);
+    fputs("\n", fp);
+    fputs(pw->pw2, fp);
+    fputs("\n", fp);
+    
+    fclose(fp);
+    
+    printf("Successfully written to file\n");
+}
+
+void writeDataFromInputFile(FileHandler *fh) {
+    FILE *fin = fopen(fh->inputFile, "r");
+    FILE *fout = fopen(fh->outputFile, "a");
+    
+    char line[100];
+    
+    while((fgets(line, 100, fin) != NULL)) {
+        fputs(line, fout);
     }
     
-    if(num != NULL) {
-        free(num);
-        num = NULL;
-    }
+    fclose(fin);
+    fclose(fout);
     
-    if(fh != NULL) {
-        free(fh);
-        free(fh->inputFile);
-        free(fh->outputFile);
-        fh = NULL;
-    }
+    printf("Successfully written to file\n");
 }

@@ -17,4 +17,6 @@ char * getFile(char * prompt);
 
 int validateFile(char *filename);
 
+void cleanFile(FileHandler *fh);
+
 #endif

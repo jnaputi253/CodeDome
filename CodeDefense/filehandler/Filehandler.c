@@ -53,3 +53,12 @@ int validateFile(char *filename) {
     fclose(fp);
     return result;
 }
+
+void cleanFile(FileHandler *fh) {
+    if(fh != NULL) {
+        free(fh->inputFile);
+        free(fh->outputFile);
+        free(fh);
+        fh = NULL;
+    }
+}

@@ -17,9 +17,9 @@ Person * init() {
 	return (Person *)calloc(1, sizeof(Person));
 }
 
-/* char * getName(char *prompt) {
+char * getName(char *prompt) {
     char *pattern = "^[A-Za-z]*$";
-    // regex_t regex;
+    regex_t regex;
     char buff[50];
     char *name;
     
@@ -55,4 +55,13 @@ Person * init() {
     }
     
     return name;
-} */
+}
+
+void cleanPerson(Person *p) {
+    if(p != NULL) {
+        free(p->firstName);
+        free(p->lastName);
+        free(p);
+        p = NULL;
+    }
+}

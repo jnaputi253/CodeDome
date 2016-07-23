@@ -7,14 +7,18 @@
 #include <string.h>
 
 typedef struct {
-    char password[30];
-    char passwordMatch[30];
+    char *pw1;
+    char *pw2;
 } Password;
 
 Password * passwordInit();
 
-void getPassword(Password *pw);
+char * getPassword(Password *pw, char *prompt);
 
-void getPasswordMatch(Password *pw);
+char * saltPassword(char *password);
+
+void comparePasswords(Password *pw);
+
+void cleanPassword(Password *password);
 
 #endif

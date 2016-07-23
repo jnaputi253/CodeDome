@@ -44,13 +44,12 @@ int getNumber(char *prompt) {
 }
 
 int add(int num1, int num2) {
-    if(((num1 > 0) && (num2 > INT_MAX - num1))
-       || ((num1 < 0) && (num2 < INT_MIN - num1))) {
-        printf("Summing the two numbers results in an overflow.  Defaulting to 0");
+    if((num1 + num2) > INT_MAX) {
+        printf("The sum of the two numbers would cause an overflow.  Defaulting to 0\n");
         return 0;
-    } else {
-        return num1 + num2;
     }
+    
+    return num1 + num2;
 }
 
 int multiply(int num1, int num2) {
@@ -60,5 +59,12 @@ int multiply(int num1, int num2) {
         return 0;
     } else {
         return num1 * num2;
+    }
+}
+
+void cleanNumber(Number *num) {
+    if(num != NULL) {
+        free(num);
+        num = NULL;
     }
 }
