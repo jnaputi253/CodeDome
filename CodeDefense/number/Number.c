@@ -25,27 +25,53 @@ Number * initNumbers() {
 
 int getNumber(char *prompt) {
     int number;
-    char buff[200];
+    char buff[10];
     char *backup;
+    int run = 1;
     
-    printf("%s", prompt);
-    fgets(buff, 20, stdin);
-    
-    number = atoi(buff);
-    if(number > INT_MAX) {
-        printf("Your value is too large.  Defaulting to 0\n");
-        return 0;
-    } else if(number < INT_MIN) {
-        printf("Your value is too small.  Defaulting to 0\n");
-        return 0;
+    while(run) {
+        printf("%s", prompt);
+        fgets(buff, 10, stdin);
+        
+        if(buff[strlen(buff) - 1] != '\n') {
+            buff[strlen(buff) - 1] = '\n';
+            
+            char c;
+            while((c = getchar()) != '\n' && c != EOF);
+        }
+        
+        number = atoi(buff);
+        
+        if(number == 0) {
+            if(buff[0] == 0) {
+                run = 0;
+            } else if(buff[0] != 0) {
+                printf("Enter only a number\n\n");
+                buff[0] = '\0';
+            }
+        } else if(number > 0) {
+            if(number > (int)INT_MAX) {
+                printf("Your input is too large\n\n");
+                buff[0] = '\0';
+            } else {
+                run = 0;
+            }
+        } else if(number < 0) {
+            if(number < (int)INT_MIN) {
+                printf("Your input is too small\n\n");
+                buff[0] = '\0';
+            } else {
+                run = 0;
+            }
+        }
     }
     
     return number;
 }
 
 int add(int num1, int num2) {
-    if((num1 + num2) > INT_MAX) {
-        printf("The sum of the two numbers would cause an overflow.  Defaulting to 0\n");
+    if(((num1 + num2) > INT_MAX) || ((num1 + num2) < INT_MIN)) {
+        printf("The sum of the two numbers would cause an overflow.  Defaulting to 0\n\n");
         return 0;
     }
     
@@ -53,13 +79,11 @@ int add(int num1, int num2) {
 }
 
 int multiply(int num1, int num2) {
-    if(((num1 > 0) && (num2 > INT_MAX - num1))
-       || ((num1 < 0) && (num2 < INT_MIN - num1))) {
-        printf("Summing the two numbers results in an overflow.  Defaulting to 0");
-        return 0;
-    } else {
-        return num1 * num2;
+    if(((num1 * num2) > INT_MAX) || ((num1 * num2) < INT_MIN)) {
+        printf("The product of the two numbers would cause an overflow.  Defaulting to 0\n\n")
     }
+    
+    return num1 * num2;
 }
 
 void cleanNumber(Number *num) {
