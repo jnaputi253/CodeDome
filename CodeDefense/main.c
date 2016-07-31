@@ -31,9 +31,13 @@ int main() {
     writeDataFromInputFile(handler);
     
     cleanPerson(me);
+    printf("Person cleaned\n");
     cleanNumber(number);
+    printf("Number cleaned\n");
     cleanFile(handler);
+    printf("File cleaned\n");
     cleanPassword(password);
+    printf("Password cleaned\n");
 
 	return 0;
 }
@@ -42,9 +46,7 @@ void writeData(Person *p, Number *n, Password *pw, FileHandler *fh) {
     FILE *fp = fopen(fh->outputFile, "w+");
     
     fputs(p->firstName, fp);
-    fputs(" ", fp);
     fputs(p->lastName, fp);
-    fputs("\n", fp);
     fprintf(fp, "%d", n->firstNumber);
     fputs("\n", fp);
     fprintf(fp, "%d", n->secondNumber);
@@ -71,6 +73,7 @@ void writeDataFromInputFile(FileHandler *fh) {
     FILE *fout = fopen(fh->outputFile, "a");
     
     char line[100];
+    printf("Set the array\n");
     
     while((fgets(line, 100, fin) != NULL)) {
         fputs(line, fout);

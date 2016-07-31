@@ -1,5 +1,5 @@
 test: main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o ./password/Password.o
-	gcc -pedantic -Wall -Werror -Wextra -o test main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o ./password/Password.o
+	gcc -pedantic -Wall -Werror -Wextra -o test main.c ./person/Person.o ./number/Number.o ./filehandler/Filehandler.o ./password/Password.o -lcrypt
 
 Person.o: ./person/Person.c ./person/Person.h
 	gcc ./person/Person.c ./person/Person.h

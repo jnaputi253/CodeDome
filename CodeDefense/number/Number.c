@@ -80,7 +80,7 @@ int add(int num1, int num2) {
 
 int multiply(int num1, int num2) {
     if(((num1 * num2) > INT_MAX) || ((num1 * num2) < INT_MIN)) {
-        printf("The product of the two numbers would cause an overflow.  Defaulting to 0\n\n")
+        printf("The product of the two numbers would cause an overflow.  Defaulting to 0\n\n");
     }
     
     return num1 * num2;

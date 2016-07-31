@@ -15,6 +15,8 @@ FileHandler * initHandler();
 
 char * getFile(char * prompt);
 
+int hasPath(char *input);
+
 int validateFile(char *filename);
 
 void cleanFile(FileHandler *fh);

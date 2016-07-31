@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <regex.h>
 #include <string.h>
+#include <unistd.h>
+#include <time.h>
+#include <crypt.h>
 
 typedef struct {
     char *pw1;

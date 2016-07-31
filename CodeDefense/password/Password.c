@@ -22,19 +22,26 @@ char * getPassword(Password *password, char *prompt) {
     }
     
     char *input = saltPassword(buff);
-    printf("Password: %s\n", input);
     
     return input;
 }
 
 char * saltPassword(char *buff) {
-    char *salt = "FSASD9J";
-    char *saltedPassword = (char *)calloc((strlen(buff) - 1 + strlen(salt) - 1), sizeof(char));
-    
-    strncat(saltedPassword, buff, strlen(buff) - 1);
-    strncat(saltedPassword, salt, strlen(buff) - 1);
-    
-    return saltedPassword;
+	unsigned long seed[2];
+	char salt[] = "$6$........";
+	const char *seedChars = 
+		"./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		"abcdefghijklmnopqrstuvwxyz";
+
+	seed[0] = time(NULL);
+	seed[1] = getpid() ^ (seed[0] >> 14 & 0x30000);
+
+	int i;
+	for(i = 0; i < 8; i++) {
+		salt[3+i] = seedChars[(seed[i/5] >> (i%6) * 6) & 0x3f];
+	}
+
+	return crypt(buff, salt);
 }
 
 void comparePasswords(Password *pw) {
@@ -49,8 +56,6 @@ void comparePasswords(Password *pw) {
 
 void cleanPassword(Password *pw) {
     if(pw != NULL) {
-        free(pw->pw1);
-        free(pw->pw2);
         free(pw);
         pw = NULL;
     }
