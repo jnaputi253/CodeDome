@@ -9,7 +9,7 @@ void writeData(Person *p, Number *n, Password *pw, FileHandler *fh);
 void writeDataFromInputFile(FileHandler *fh);
 
 int main() {
-	Person *me = init();
+	 Person *me = init();
     me->firstName = getName("Enter your first name: ");
     me->lastName = getName("Enter your last name: ");
     
@@ -18,8 +18,8 @@ int main() {
     number->secondNumber = getNumber("Enter your second number: ");
     
     FileHandler *handler = initHandler();
-    handler->inputFile = getFile("Enter your input file: ");
-    handler->outputFile = getFile("Enter your output file: ");
+    handler->inputFile = getFile(handler, "Enter your input file: ");
+    handler->outputFile = getFile(handler, "Enter your output file: ");
     
     Password *password = passwordInit();
     password->pw1 = getPassword(password, "Enter password: ");
@@ -31,13 +31,9 @@ int main() {
     writeDataFromInputFile(handler);
     
     cleanPerson(me);
-    printf("Person cleaned\n");
     cleanNumber(number);
-    printf("Number cleaned\n");
     cleanFile(handler);
-    printf("File cleaned\n");
     cleanPassword(password);
-    printf("Password cleaned\n");
 
 	return 0;
 }
@@ -45,8 +41,9 @@ int main() {
 void writeData(Person *p, Number *n, Password *pw, FileHandler *fh) {
     FILE *fp = fopen(fh->outputFile, "w+");
     
-    fputs(p->firstName, fp);
-    fputs(p->lastName, fp);
+    /* fputs(p->firstName, fp);
+    fputs(p->lastName, fp); */
+    fprintf(fp, "%s %s\n", p->firstName, p->lastName);
     fprintf(fp, "%d", n->firstNumber);
     fputs("\n", fp);
     fprintf(fp, "%d", n->secondNumber);
@@ -73,7 +70,6 @@ void writeDataFromInputFile(FileHandler *fh) {
     FILE *fout = fopen(fh->outputFile, "a");
     
     char line[100];
-    printf("Set the array\n");
     
     while((fgets(line, 100, fin) != NULL)) {
         fputs(line, fout);

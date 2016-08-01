@@ -1,16 +1,17 @@
-JuanNaputi3
-3
-3 + 3 = 6
-3 * 3 = 9
-$6$JXKbL.ET$tryxkcyELgl7XeBUksG0y1CFkWuR7/6APCMpVIsN6gGYvDC8KD72BOgAnQtBO0uVa1mltd04eOTXlFJTk5ZCz/
-$6$JXKbL.ET$tryxkcyELgl7XeBUksG0y1CFkWuR7/6APCMpVIsN6gGYvDC8KD72BOgAnQtBO0uVa1mltd04eOTXlFJTk5ZCz/
+Juan Naputi
+4
+4
+4 + 4 = 8
+4 * 4 = 16
+$6$c1gbL.lt$MKLfW.SOcn67LBXLg/pgWr/vVO/qkGZgTEOggYfMhZPvAb6B3PSWH4Mum36I6TFnOVk3PMnNCHG3CKUcpKP1B1
+$6$c1gbL.lt$MKLfW.SOcn67LBXLg/pgWr/vVO/qkGZgTEOggYfMhZPvAb6B3PSWH4Mum36I6TFnOVk3PMnNCHG3CKUcpKP1B1
 Rome
+Gaul
+Egypt
+Parthia
+Seleucid Empire
+Ptolemaic Egypt
 Carthage
 Athens
 Sparta
-Epirus
-Parthia
-Sassanids
-Persia
-Egypt
-Seleucid Empire
+Galatia

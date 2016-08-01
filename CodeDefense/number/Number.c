@@ -70,15 +70,31 @@ int getNumber(char *prompt) {
 }
 
 int add(int num1, int num2) {
-    if(((num1 + num2) > INT_MAX) || ((num1 + num2) < INT_MIN)) {
+	long n1 = (long) num1;
+	long n2 = (long) num2;
+	
+	if((n1 + n2 > (long) INT_MAX) || (n1 + n2 < (long) INT_MIN)) {
+		printf("Overflow will occur on addition\n");
+		return 0;
+	}
+	
+    /* if(((num1 + num2) > INT_MAX) || ((num1 + num2) < INT_MIN)) {
         printf("The sum of the two numbers would cause an overflow.  Defaulting to 0\n\n");
         return 0;
-    }
+    } */
     
     return num1 + num2;
 }
 
 int multiply(int num1, int num2) {
+	long n1 = (long) num1;
+	long n2 = (long) num2;
+	
+	if((n1 * n2 > (long) INT_MAX) || (n1 * n2 < (long) INT_MIN)) {
+		printf("Overflow will occur on multiplication\n");
+		return 0;
+	}
+
     if(((num1 * num2) > INT_MAX) || ((num1 * num2) < INT_MIN)) {
         printf("The product of the two numbers would cause an overflow.  Defaulting to 0\n\n");
     }

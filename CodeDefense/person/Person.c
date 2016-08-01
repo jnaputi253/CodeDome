@@ -7,7 +7,7 @@ Person * init() {
 char * getName(char *prompt) {
     char *pattern = "^[A-Za-z]*$";
     regex_t regex;
-    char buff[52];
+    char buff[50];
     char *name;
     
     int result = regcomp(&regex, pattern, 0);

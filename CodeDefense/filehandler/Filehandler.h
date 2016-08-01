@@ -13,11 +13,15 @@ typedef struct {
 
 FileHandler * initHandler();
 
-char * getFile(char * prompt);
+char * getFile(FileHandler *fh, char * prompt);
+
+int matchCheck(FileHandler *fh, char *file);
 
 int hasPath(char *input);
 
 int validateFile(char *filename);
+
+void clear(char *buffer, char *extension);
 
 void cleanFile(FileHandler *fh);
 
