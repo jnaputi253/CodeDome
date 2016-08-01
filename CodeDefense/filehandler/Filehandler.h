@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 
 typedef struct {
     char *inputFile;
@@ -22,6 +23,10 @@ int hasPath(char *input);
 int validateFile(char *filename);
 
 void clear(char *buffer, char *extension);
+
+void clearBuffer(char *buffer);
+
+void clearExtension(char *extension);
 
 void cleanFile(FileHandler *fh);
 

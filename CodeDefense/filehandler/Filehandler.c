@@ -15,12 +15,32 @@ char * getFile(FileHandler *fh, char * prompt) {
         
         if(!hasPath(buff)) {
 		     char *dot = strrchr(buff, '.');
-		     if(dot)
-		     {
-		     		extension = dot + 1;
+		     if(dot) {
+		     	extension = dot + 1;	
+		     	int result = strcmp(extension, "txt\n");
+		     	
+		     	if(result == 0) {
+		     		if(matchCheck(fh, buff) == 0) {
+		     			if(validateFile(buff) == 0) {
+		     				repeat = 0;
+		     			} else if(validateFile(buff) == -1) {
+		     				printf("The file does not exist\n\n");
+		     				clearBuffer(buff);
+		     				clearExtension(extension);
+		     			}
+		     		} else if(matchCheck(fh, buff) == -1) {
+		     			printf("The input file and output file cannot be the same\n\n");
+		     			clearBuffer(buff);
+		     			clearExtension(extension);
+		     		}
+		     	}   
+		     } else {
+		     	printf("There is no dot\n\n");
+		     	clearBuffer(buff);
 		     }
 
-		     int result = strcmp(extension, "txt\n");
+
+		     /*int result = strcmp(extension, "txt\n");
 		     
 		     if(result == 0) {
 		 		   if(matchCheck(fh, buff) == 0) {
@@ -36,10 +56,11 @@ char * getFile(FileHandler *fh, char * prompt) {
 		     } else {
 		         printf("Text file (.txt) only\n");
 		         clear(buff, extension);
-		     }
+		     }*/
         } else {
         	printf("Path input not allowed.  File must be in the directory\n\n");
-        	clear(buff, extension);
+        	clearBuffer(buff);
+        	clearExtension(extension);
         }
     }
     
@@ -63,14 +84,18 @@ int matchCheck(FileHandler *fh, char *file) {
 }
 
 int hasPath(char *input) {
+	char *temp = (char *)calloc(strlen(input) - 1, sizeof(char));
+	strncpy(temp, input, strlen(input) - 1);
 	int result = 0;
 	
 	int i;
-	for(i = 0; i < strlen(input); i++) {
-		if(input[i] == '\\' || input[i] == '/') {
+	for(i = 0; i < strlen(temp); i++) {
+		if(temp[i] == '\\' || temp[i] == '/') {
 			result = 1;
 		}
 	}
+	
+	free(temp);
 	
 	return result;
 }
@@ -92,8 +117,11 @@ int validateFile(char *filename) {
     return result;
 }
 
-void clear(char *buffer, char *extension) {
+void clearBuffer(char *buffer) {
 	buffer[0] = '\0';
+}
+
+void clearExtension(char *extension) {
 	extension[0] = '\0';
 }
 
